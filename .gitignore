@@ -1,0 +1,24 @@
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Log file
+*.log
+
+# Compiled class file
+*.class
+
+# Windows:
+Desktop.ini
+
+# idea
+target
+.classpath
+*.iml
+.idea
+bin
