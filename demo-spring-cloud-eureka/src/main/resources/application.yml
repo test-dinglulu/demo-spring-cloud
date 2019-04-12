@@ -1,0 +1,55 @@
+server:
+  #服务端口
+  port: 8001
+spring:
+  application:
+    #应用名称
+    name: spring-cloud-eureka-server
+eureka:
+  server:
+    #关闭自我保护【用于本地测试时配置-快速剔除失效服务】
+    enable-self-preservation: false
+    #检查失效服务间隔【用于本地测试时配置-快速剔除失效服务】
+    eviction-interval-timer-in-ms: 9000
+  instance:
+    #实例主机名（建议使用IP）
+    hostname: 127.0.0.1
+    #自定义实例ID（默认为 主机名:应用名:端口号）
+    instance-id: ${eureka.instance.hostname}:${server.port}
+  client:
+    #非集群服务配置，不将自己当客户端注册到自己
+    register-with-eureka: false
+    #非集群服务配置，不从服务端拉取服务列表
+    fetch-registry: false
+    service-url:
+      defaultZone: http://127.0.0.1:8001/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        #actuator监控中心，开放所有权限
+        include: '*'
+#################################### eureka 集群配置示例 start #################################
+#eureka:
+#  server:
+#    #关闭自我保护【用于本地测试时配置-快速剔除失效服务】
+#    enable-self-preservation: false
+#    #检查失效服务间隔【用于本地测试时配置-快速剔除失效服务】
+#    eviction-interval-timer-in-ms: 1000
+#  instance:
+#    #实例主机名（建议使用IP）
+#    hostname: 127.0.0.1
+#    #自定义实例ID
+#    instance-id: ${eureka.instance.hostname}:${server.port}
+#    #续约更新时间间隔【用于本地测试时配置-快速剔除失效服务】
+#    lease-renewal-interval-in-seconds: 3
+#    #续约到期时间【用于本地测试时配置-快速剔除失效服务】
+#    lease-expiration-duration-in-seconds: 9
+#  client:
+#    #指定eureka服务地址（集群配置：将当前服务当作一个eureka客户端，注册到集群中所有eureka服务上）
+#    #地址结构：http://[hostname]:[port]/eureka，其中hostname要与配置中的eureka.instance.hostname一一对应
+#    #这样对应后，下面的defaultZone就可以写全量服务地址，不需要手动剔除本机服务地址，eureka会根据hostname对比，区分本机和集群中其它机器
+#    service-url:
+#      defaultZone: http://127.0.0.1:8001/eureka,http://localhost:8002/eureka,http://192.168.10.110:8003/eureka
+#################################### eureka 集群配置示例 end #################################
+
